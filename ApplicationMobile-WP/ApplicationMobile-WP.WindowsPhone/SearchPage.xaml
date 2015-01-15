@@ -1,0 +1,55 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ApplicationMobile_WP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:ApplicationMobile_WP.ViewModel"
+    xmlns:Controls="using:WinRTXamlToolkit.Controls"
+    x:Class="ApplicationMobile_WP.SearchPage"
+    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=vm:SearchViewModel}"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Home" Command="{Binding GoHomeCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="Find summoner" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <StackPanel>
+                <TextBlock Text="Enter a summoner name :" x:Uid="EnterSummoner" FontSize="20"/>
+                <TextBox Margin="0,27,0,0" Text="{Binding SummonerName, Mode=TwoWay}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Uid="Find" Content="Find" Command="{Binding SearchCommand}"/>
+                    <ComboBox Margin="20,0,0,0" ItemsSource="{Binding Regions}"
+						SelectedItem="{Binding ChosenRegion, Mode=TwoWay}" x:Name="ComboBoxRegions"/>
+                </StackPanel>
+                <TextBlock Foreground="Red" Text="{Binding ErrorMessage, Mode=TwoWay}" VerticalAlignment="Center"
+					FontSize="12"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Page>

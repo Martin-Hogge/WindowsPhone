@@ -1,0 +1,69 @@
+﻿<Page
+    x:Name="pageRoot"
+    x:Class="ApplicationMobile_WP.SearchPage"
+    d:DataContext="{d:DesignInstance Type=vm:SearchViewModel, IsDesignTimeCreatable=False}"
+    xmlns:vm="using:ApplicationMobile_WP.ViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ApplicationMobile_WP"
+    xmlns:common="using:ApplicationMobile_WP.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Home" Label="Home" Command="{Binding GoHomeCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Page.Resources>
+        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
+        <x:String x:Key="AppName">My Application</x:String>
+    </Page.Resources>
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Back button and page title -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Margin="39,59,39,0" Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        VerticalAlignment="Top"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
+        </Grid>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+            <TextBlock Text="Enter a summoner name :" x:Uid="EnterSummoner" FontSize="50"/>
+            <TextBox Margin="0,27,0,0" Text="{Binding SummonerName, Mode=TwoWay}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,15">
+                <Button x:Uid="Find" Content="Find" Command="{Binding SearchCommand}"
+                        FontSize="30"/>
+                <ComboBox Margin="20,0,0,0" ItemsSource="{Binding Regions}"
+						SelectedItem="{Binding ChosenRegion, Mode=TwoWay}" x:Name="ComboBoxRegions"/>
+            </StackPanel>
+            <TextBlock Foreground="Red" Text="{Binding ErrorMessage, Mode=TwoWay}" VerticalAlignment="Center"
+					FontSize="12"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,494 @@
+﻿<Page
+    x:Class="ApplicationMobile_WP.HubPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ApplicationMobile_WP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:ApplicationMobile_WP.ViewModel"
+    xmlns:mo="using:ApplicationMobile_WP.Model"
+    xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    d:DataContext="{d:DesignInstance Type=vm:HubViewModel, IsDesignTimeCreatable=True}"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Find" Command="{Binding SearchCommand}"/>
+            <AppBarButton Icon="Home" Command="{Binding GoHomeCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <!-- Blender Generation -->
+    <Page.Resources>
+        <FontFamily x:Key="ContentControlThemeFontFamily">Segoe WP</FontFamily>
+        <x:Double x:Key="ControlContentThemeFontSize">12</x:Double>
+        <Thickness x:Key="ListViewItemMargin">0</Thickness>
+        <SolidColorBrush x:Key="CheckBoxBackgroundThemeBrush" Color="Transparent"/>
+        <x:Double x:Key="CheckBoxBorderThemeThickness">2.5</x:Double>
+        <x:Double x:Key="ListViewItemContentOffsetX">-40.5</x:Double>
+        <Thickness x:Key="ListViewItemMultiselectCheckBoxMargin">0,9.5,0,0</Thickness>
+        <Thickness x:Key="GridViewItemMultiselectBorderThickness">2.5</Thickness>
+        <x:Double x:Key="ListViewItemDisabledThemeOpacity">0.55</x:Double>
+        <x:Double x:Key="ListViewItemContentTranslateX">40.5</x:Double>
+        <x:Double x:Key="ListViewItemReorderHintThemeOffset">32</x:Double>
+        <Style x:Key="ListViewItemStyle1" TargetType="ListViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="False"/>
+            <Setter Property="Margin" Value="{ThemeResource ListViewItemMargin}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="OuterContainer" RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="ContentScaleTransform"/>
+                            </Border.RenderTransform>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="Pressed" To="Normal">
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="TiltContainer"/>
+                                            </Storyboard>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="TiltContainer"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckboxPressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="CheckboxTiltContainer"/>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="{ThemeResource ListViewItemDisabledThemeOpacity}" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="contentPresenter"/>
+                                            <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="SelectedBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Fill" Storyboard.TargetName="SelectedEarmark">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Fill" Storyboard.TargetName="SelectedGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected"/>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SelectedCheckMark"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="SelectedUnfocused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SelectedCheckMark"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <VisualState x:Name="DataAvailable"/>
+                                    <VisualState x:Name="DataPlaceholder">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PlaceholderTextBlock">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PlaceholderRect">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="MultiSelectStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="ListMultiSelect" GeneratedDuration="0:0:0.15" To="NoMultiSelect"/>
+                                        <VisualTransition From="NoMultiSelect" GeneratedDuration="0:0:0.15" To="ListMultiSelect"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="NoMultiSelect"/>
+                                    <VisualState x:Name="ListMultiSelect">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="X" Storyboard.TargetName="CheckboxContainerTranslateTransform"/>
+                                            <DoubleAnimation Duration="0" To="{ThemeResource ListViewItemContentTranslateX}" Storyboard.TargetProperty="X" Storyboard.TargetName="ContentBorderTranslateTransform"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="GridMultiSelect">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SelectedBorder"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderModeStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="ReorderEnabled" GeneratedDuration="00:00:00.2" To="ReorderDisabled"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="ReorderEnabled">
+                                        <Storyboard>
+                                            <DropTargetItemThemeAnimation Storyboard.TargetName="OuterContainer"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Reorderable">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="ContentScaleTransform">
+                                                <LinearDoubleKeyFrame KeyTime="00:00:00.075" Value="1.05"/>
+                                                <LinearDoubleKeyFrame KeyTime="00:00:00.2" Value="1.0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="ContentScaleTransform">
+                                                <LinearDoubleKeyFrame KeyTime="00:00:00.075" Value="1.05"/>
+                                                <LinearDoubleKeyFrame KeyTime="00:00:00.2" Value="1.0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="ReorderDisabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderHintStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.2" To="NoReorderHint"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="NoReorderHint"/>
+                                    <VisualState x:Name="BottomReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation Direction="Bottom" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Storyboard.TargetName="ReorderHintContent"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="RightReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation Direction="Right" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Storyboard.TargetName="ReorderHintContent"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="TopReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation Direction="Top" ToOffset="0" Storyboard.TargetName="ReorderHintContent"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="LeftReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation Direction="Left" ToOffset="0" Storyboard.TargetName="ReorderHintContent"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="ReorderHintContent" Background="Transparent">
+                                <Border x:Name="CheckboxTiltContainer" HorizontalAlignment="Left" Margin="{ThemeResource ListViewItemMultiselectCheckBoxMargin}" VerticalAlignment="Top">
+                                    <Border x:Name="CheckboxOuterContainer">
+                                        <Border.Clip>
+                                            <RectangleGeometry Rect="0,0,25.5,25.5"/>
+                                        </Border.Clip>
+                                        <Grid x:Name="CheckboxContainer">
+                                            <Grid.RenderTransform>
+                                                <TranslateTransform x:Name="CheckboxContainerTranslateTransform" X="{ThemeResource ListViewItemContentOffsetX}"/>
+                                            </Grid.RenderTransform>
+                                            <Rectangle x:Name="NormalRectangle" Fill="{ThemeResource CheckBoxBackgroundThemeBrush}" Height="25.5" Stroke="{ThemeResource CheckBoxBorderThemeBrush}" StrokeThickness="{ThemeResource CheckBoxBorderThemeThickness}" Width="25.5"/>
+                                            <Path x:Name="CheckGlyph" Data="M0,123 L39,93 L124,164 L256,18 L295,49 L124,240 z" Fill="{ThemeResource CheckBoxForegroundThemeBrush}" FlowDirection="LeftToRight" HorizontalAlignment="Center" Height="17" IsHitTestVisible="False" Opacity="0" Stretch="Fill" StrokeThickness="2.5" StrokeLineJoin="Round" VerticalAlignment="Center" Width="18.5"/>
+                                        </Grid>
+                                    </Border>
+                                </Border>
+                                <Border x:Name="ContentContainer">
+                                    <Border x:Name="TiltContainer">
+                                        <Border x:Name="ContentBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                            <Border.RenderTransform>
+                                                <TranslateTransform x:Name="ContentBorderTranslateTransform"/>
+                                            </Border.RenderTransform>
+                                            <Grid>
+                                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" AutomationProperties.AccessibilityView="Raw" Foreground="{x:Null}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" Opacity="0" Text="Xg"/>
+                                                <Rectangle x:Name="PlaceholderRect" Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" IsHitTestVisible="False" Visibility="Collapsed"/>
+                                            </Grid>
+                                        </Border>
+                                    </Border>
+                                </Border>
+                                <Border x:Name="SelectedBorder" BorderBrush="{ThemeResource ListViewItemSelectedBackgroundThemeBrush}" BorderThickness="{ThemeResource GridViewItemMultiselectBorderThickness}" IsHitTestVisible="False" Opacity="0">
+                                    <Grid x:Name="SelectedCheckMark" HorizontalAlignment="Right" Height="34" Opacity="0" VerticalAlignment="Top" Width="34">
+                                        <Path x:Name="SelectedEarmark" Data="M0,0 L40,0 L40,40 z" Fill="{ThemeResource ListViewItemSelectedBackgroundThemeBrush}" Stretch="Fill"/>
+                                        <Path x:Name="SelectedGlyph" Data="M0,123 L39,93 L124,164 L256,18 L295,49 L124,240 z" Fill="{ThemeResource ListViewItemCheckThemeBrush}" FlowDirection="LeftToRight" HorizontalAlignment="Right" Height="14.5" Margin="0,1,1,0" Stretch="Fill" VerticalAlignment="Top" Width="17"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <mo:RankConverter x:Key="RankConverter"/>
+        <mo:LeaguePointConverter x:Key="LeaguePointConverter"/>
+        <mo:UserIconConverter x:Key="UserIconConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer>
+            <Hub Header="{Binding User.Name}" x:Name="Hub">
+                <!-- 1st Hub Section : General Informations -->
+                <HubSection  Width="390" Header="Vue d'emsemble" x:Uid="GlobalView">
+                    <DataTemplate>
+                        <StackPanel>
+                            <!-- Header -->
+                            <Grid VerticalAlignment="Top" Height="75">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Header Content -->
+                                <Image Grid.Column="0" 
+                                       Source="{Binding User.IdIcon, Converter={StaticResource UserIconConverter}}"
+                                       Width="75" Height="75">
+                                </Image>
+                                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                    <TextBlock FontSize="27">
+                                    <Run Text="{Binding User.Name}"></Run>
+                                    <Run Text=" ("></Run>
+                                    <Run Text="{Binding User.Level}"></Run>
+                                    <Run Text=")"></Run>
+                                    </TextBlock>
+                                    <StackPanel Margin="0,7,0,0">
+                                        <TextBlock FontSize="14">
+                                        <Run Text="KDA : "></Run>
+                                        <Run Text="{Binding User.KDA}"></Run>
+                                        </TextBlock>
+                                        <TextBlock FontSize="14" Margin="0,1,0,0">
+                                        <Run Text="Victoires : " x:Uid="Victories"></Run>
+                                        <Run Text="{Binding User.Victories}"></Run>
+                                        <Run Text=" Défaites : " x:Uid="Defeats"></Run>
+                                        <Run Text="{Binding User.Defeats}"></Run>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                            <!-- Ranking -->
+                            <StackPanel Margin="0,25,0,0">
+                                <Rectangle Fill="White" Height="3"></Rectangle>
+                                <TextBlock Text="Classement" FontSize="40" HorizontalAlignment="Center" Margin="0,5,0,5" x:Uid="RankingTitle"></TextBlock>
+                                <Rectangle Fill="White" Height="3"></Rectangle>
+                            </StackPanel>
+
+                            <Grid VerticalAlignment="Top" Height="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Ranking Content -->
+                                <StackPanel Grid.Column="0">
+                                    <Image Source="{Binding User.RankTeam3v3, Converter={StaticResource RankConverter}}"></Image>
+                                    <TextBlock HorizontalAlignment="Center" FontSize="13">
+                                    <Run Text="{Binding User.RankTeam3v3.Tier}"></Run>
+                                    <Run Text="{Binding User.RankTeam3v3.Division}"></Run>
+                                    <Run Text="{Binding User.RankTeam3v3.LeaguePoints}"></Run>
+                                    <Run Text="{Binding User.RankTeam3v3.Tier, Converter={StaticResource LeaguePointConverter}}"></Run>
+                                    </TextBlock>
+                                    <TextBlock Text="Equipe 3c3" HorizontalAlignment="Center" x:Uid="Team3c3"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <Image Source="{Binding User.RankSolo, Converter={StaticResource RankConverter}}"></Image>
+                                    <TextBlock HorizontalAlignment="Center" FontSize="13">
+                                    <Run Text="{Binding User.RankSolo.Tier}"></Run>
+                                    <Run Text="{Binding User.RankSolo.Division}"></Run>
+                                    <Run Text="{Binding User.RankSolo.LeaguePoints}"></Run>
+                                    <Run Text="{Binding User.RankSolo.Tier, Converter={StaticResource LeaguePointConverter}}"></Run>
+                                    </TextBlock>
+                                    <TextBlock Text="Solo/Duo" HorizontalAlignment="Center" x:Uid="SoloDuo"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <Image Source="{Binding User.RankTeam5v5, Converter={StaticResource RankConverter}}"></Image>
+                                    <TextBlock HorizontalAlignment="Center" FontSize="13">
+                                    <Run Text="{Binding User.RankTeam5v5.Tier}"></Run>
+                                    <Run Text="{Binding User.RankTeam5v5.Division}"></Run>
+                                    <Run Text="{Binding User.RankTeam5v5.LeaguePoints}"></Run>
+                                    <Run Text="{Binding User.RankTeam5v5.Tier, Converter={StaticResource LeaguePointConverter}}"></Run>
+                                    </TextBlock>
+                                    <TextBlock Text="Equipe 5c5" HorizontalAlignment="Center" x:Uid="Team5c5"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Button Content="{Binding TextButtonFavorite}" HorizontalAlignment="Center"
+                                    x:Uid="AddFavorite" Command="{Binding FavoriteCommand}"/>
+                            <TextBlock Text="{Binding AlertMessageFavorite, Mode=TwoWay}"
+                                       HorizontalAlignment="Center" Foreground="{Binding ColorAlertMessage, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </HubSection>
+
+                <!-- 2st Hub Section : Season's Statistics-->
+                <!-- TO DO : Binding-->
+                <HubSection Header="Statistiques de la saison 2014" Width="398" x:Uid="StatisticsHeader">
+                    <DataTemplate>
+                        <StackPanel>
+                            <!-- Number Games Played-->
+                            <TextBlock Text="Games Played" HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="25" x:Uid="GamesPlayedTitle"/>
+                            <Grid VerticalAlignment="Top" Height="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <!-- Number Games Played Content -->
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Parties jouées :" x:Uid="GamesPlayed" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding User.Stats.NbGamesPlayed}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Parties gagnées :" FontSize="16" VerticalAlignment="Center" x:Uid="GamesWin"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding User.Victories}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </Grid>
+                            <!-- Killed and Death-->
+                            <TextBlock Text="Tués/Morts" HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="25" x:Uid="KillsAndDeathsTitle"></TextBlock>
+                            <Grid VerticalAlignment="Top" Height="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <!-- Killed and Death Content-->
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Quintuplés :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="Pentakill"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding User.Stats.Pentakill}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Quadruplés :" FontSize="16" VerticalAlignment="Center" x:Uid="Quadrakill"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding User.Stats.Quadrakill}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Triplés :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="Triple"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding User.Stats.Triple}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="Doublés :" FontSize="16" VerticalAlignment="Center" x:Uid="Double"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding User.Stats.Double}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="Meurtres en séries :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="KillingSpree"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding User.Stats.KillingSpree}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="5" Text="Plus longue série :" FontSize="16" VerticalAlignment="Center" x:Uid="LargestKillingSpree"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding User.Stats.LargestKillingSpree}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="6" Text="Champion tués :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="ChampionsSlain"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding User.Stats.ChampionsSlain}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="7" Text="Morts :" FontSize="16" VerticalAlignment="Center" x:Uid="Deaths"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding User.Stats.Deaths}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="8" Text="Assistances :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="Assist"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding User.Stats.Assists}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="9" Text="Max tué en une partie :" FontSize="16" VerticalAlignment="Center" x:Uid="MostKills"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="9" Text="{Binding User.Stats.MostKills}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="10" Text="Morts max :" FontSize="16" VerticalAlignment="Center" x:Uid="MostDeaths"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding User.Stats.MostDeaths}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </Grid>
+                            <!-- Damages-->
+                            <TextBlock Text="Damages" HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="25" x:Uid="DamagesTitle"></TextBlock>
+                            <Grid VerticalAlignment="Top" Height="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <!-- Damages Content -->
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Damage Dealt :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="DamageDealt"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding User.Stats.DamageDealt}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Physical Damage Dealt :" FontSize="16" VerticalAlignment="Center" x:Uid="PhysicalDamageDealt"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding User.Stats.PhysicalDamageDealt}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Magic Damage Dealt :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="MagicDamageDealt"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding User.Stats.MagicDamageDealt}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="Healing :" FontSize="16" VerticalAlignment="Center" x:Uid="Healing"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding User.Stats.Healing}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </Grid>
+                            <!-- Others-->
+                            <TextBlock Text="Others" HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="25" x:Uid="OthersTitle"></TextBlock>
+                            <Grid VerticalAlignment="Top" Height="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <!-- Damages Content -->
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Minions Slain :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="MinionsSlain"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding User.Stats.MinionsSlain}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Turrets Destroyed :" FontSize="16" VerticalAlignment="Center" x:Uid="TurretsDestroyed"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding User.Stats.TurretsDestroyed}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Longest Game :" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,5" x:Uid="LongestGame"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding User.Stats.LongestGame}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="Longest Time Alive :" FontSize="16" VerticalAlignment="Center" x:Uid="LongestTimeAlive"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding User.Stats.LongestTimeAlive}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="Monsters Slain :" FontSize="16" VerticalAlignment="Center" x:Uid="MonstersSlain"></TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding User.Stats.MonstersSlain}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </Grid>
+                            <!-- Chart !-->
+                            <TextBlock Text="App-Points : " FontSize="35" Margin="0,20,0,0" x:Uid="AppPoints">
+                                <Run Text="{Binding Score, Mode=TwoWay}"/>
+                            </TextBlock>
+                            <Button Content="Update Score" Command="{Binding UpdateScoreCommand}"
+                                    x:Uid="UpdateScore"/>
+                            <TextBlock Text="{Binding MatchUpdateText, Mode=TwoWay}"
+                                       Foreground="{Binding UpdateScoreColor, Mode=TwoWay}"
+                                       Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                    <!-- TODO : Continue Statistics-->
+                </HubSection>
+
+                <!-- 3st Hub Section : Match History -->
+                <HubSection Header="Historique" Width="387" x:Uid="Historic" >
+                    <DataTemplate>
+                        <StackPanel>
+                            <ListView
+                            ItemTemplate="{StaticResource ListMatchHistory}"
+                            ItemsSource="{Binding MatchHistory}" 
+                            ItemContainerStyle="{StaticResource ListViewItemStyle1}"
+                            Margin="0,0,0.167,0"
+                            IsItemClickEnabled="True"
+                            SelectionMode="Single"
+                            vm:ItemClickCommand.Command="{Binding DetailMatchCommand}"
+                            SelectedItem="{Binding SelectedMatch}">
+                            </ListView>
+                                <Button x:Uid="See10MoreMatchs" Content="See 10 more matchs"
+                                        Command="{Binding GetMoreMatchCommand}"
+                                        />
+                            <TextBlock x:Uid="MatchAdded" Text="{Binding NbMatchesAdded}"
+                                       Foreground="Green"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </HubSection>
+            </Hub>
+        </ScrollViewer>
+    </Grid>
+</Page>

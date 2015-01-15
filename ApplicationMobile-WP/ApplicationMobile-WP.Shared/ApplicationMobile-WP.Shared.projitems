@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>82a0eac6-e732-4bf8-a71f-80a490f0fda7</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ApplicationMobile_WP</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BackgroundConfiguration\BackgroundTaskConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\ChampionIconConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\GameTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\ItemIconConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\LeaguePointConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\RankConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\SummonerSpellConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converter\UserIconConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\LocalDataAccessManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\RemoteDataAccessManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\RemoteModel\DataModelMatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\RemoteModel\Match.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\RemoteModel\SummonerTeam.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\RemoteModel\Team.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\LocalStorageException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\RequestRiotAPIException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\DetailMatchStats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\KDA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Match.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Rank.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\RiotAPiServices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Stats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Summoner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Team.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DetailMatchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ErrorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\HubViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\INavigable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ItemClickCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LoadingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SingletonViewLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocaltor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\ExctendedSplashScreen.scale-180.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\ExtendedSplashScreen.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-180.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-80.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\StoreLogo.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\ExtendedSplashScreen.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-120x120.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-126x126.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-150x150.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-16x16.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-210x210.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-240x240.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-248x248.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-248x248.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-248x248.scale-180.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-248x248.scale-80.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-24x24.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-256x256.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-270x270.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-30x30.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-310x310.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-32x32.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-42x42.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-434x434.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-48x48.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-54x54.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-558x558.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-56x56.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-56x56.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-56x56.scale-180.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-56x56.scale-80.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-70x70.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\logos\lol-icon-98x98.PNG" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\NoItem.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Bronze.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Challenger.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Diamond.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Gold.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Master.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Platinium.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Silver.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Ranks\Unranked.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\SplashScreen\ExtendedSplashScreen-620x300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\SplashScreen\splash1116-540.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\SplashScreen\splash1156-540.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\fr-FR\Resources.resw" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,112 @@
+<Application x:Class="ApplicationMobile_WP.App" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:local="using:ApplicationMobile_WP" 
+             xmlns:mo="using:ApplicationMobile_WP.Model">
+    <Application.Resources>
+
+        <!-- Define Converters-->
+        <mo:UserIconConverter x:Key="IconUserConverter" />
+        <mo:ItemIconConverter x:Key="IconItemConverter"/>
+        <mo:SummonerSpellConverter x:Key="SummonerSpellConverter"/>
+        <mo:ChampionIconConverter x:Key="ChampionIconConverter"/>
+        <mo:GameTypeConverter x:Key="GameTypeConverter"/>
+
+        <!-- Define the ListUser template-->
+        <DataTemplate x:Key="ListUserTemplate">
+            <Grid Margin="10">
+                <!-- Grid parameters-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Items in the Grid-->
+                <Image Width="50" Height="50" Source="{Binding IdIcon, Converter={StaticResource IconUserConverter}}"/>
+                <TextBlock Text="{Binding Name}" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+
+        <!-- Define the ListMatchHistory Template-->
+        <DataTemplate x:Key="ListMatchHistory">
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="{Binding SubType, Converter={StaticResource GameTypeConverter}}" HorizontalAlignment="Center" FontSize="25"/>
+                <Rectangle Fill="White" Height="1" Margin="0,0,0,5"></Rectangle>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" 
+                           Source="{Binding ChampionId, Converter={StaticResource ChampionIconConverter}}" Width="75" Height="75"/>
+                    <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ResultText}" FontSize="18" Foreground="{Binding ResultColor}" Grid.Column="0"/>
+                            <TextBlock HorizontalAlignment="Right" 
+                                       Grid.Column="1" VerticalAlignment="Center"
+                                       Margin="0,0,10,0">
+                                <Run Text="~"></Run>
+                                <Run Text="{Binding GameLength}"></Run>
+                                <Run Text="min"></Run>
+                            </TextBlock>
+                        </Grid>
+                        <TextBlock>
+                            <Run Text="KDA :"></Run>
+                            <Run Text="{Binding KDA}"></Run>
+                            <Run Text="     "></Run>
+                            <Run Text="FARM :" FontSize="10" x:Uid="Farm"></Run>
+                            <Run Text="{Binding GoldEarned}" Foreground="Yellow" FontSize="10"></Run>
+                            <Run Text="     "/>
+                            <Run Text="CREEPS :" FontSize="10" x:Uid="Creeps"></Run>
+                            <Run Text="{Binding CreepsKilled}"></Run>
+                        </TextBlock>
+                        <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
+                            <Image Source="{Binding SummonerSpells[0], Converter={StaticResource SummonerSpellConverter}}" Width="22" Height="22"/>
+                            <Image Source="{Binding SummonerSpells[1], Converter={StaticResource SummonerSpellConverter}}" Width="22" Height="22"/>
+                            <Image Source="{Binding Items[0], Converter={StaticResource IconItemConverter}}"  Width="22" Height="22" Margin="10,0,0,0"></Image>
+                            <Image Source="{Binding Items[1], Converter={StaticResource IconItemConverter}}"  Width="22" Height="22"></Image>
+                            <Image Source="{Binding Items[2], Converter={StaticResource IconItemConverter}}" Width="22" Height="22"></Image>
+                            <Image Source="{Binding Items[3], Converter={StaticResource IconItemConverter}}"  Width="22" Height="22"></Image>
+                            <Image Source="{Binding Items[4], Converter={StaticResource IconItemConverter}}" Width="22" Height="22"></Image>
+                            <Image Source="{Binding Items[5], Converter={StaticResource IconItemConverter}}"  Width="22" Height="22"></Image>
+                            <Image Source="{Binding Items[6], Converter={StaticResource IconItemConverter}}"  Width="22" Height="22" Margin="10,0,0,0"></Image>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- Define the listPlayer of a Team Template -->
+        <DataTemplate x:Key="ListUserTeam">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding ChampionId, Converter={StaticResource ChampionIconConverter}}"
+                       Grid.Column="0" Width="40" Height="40" Margin="10,0,0,0"/>
+                <TextBlock Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="15"></TextBlock>
+            </Grid>
+        </DataTemplate>
+
+        <!-- TABLET : -->
+
+        <DataTemplate x:Key="ListUserTemplateTablet">
+            <Grid Margin="10">
+                <!-- Grid parameters-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Items in the Grid-->
+                <Image Width="75" Height="75" Source="{Binding IdIcon, Converter={StaticResource IconUserConverter}}"/>
+                <TextBlock Text="{Binding Name}" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="25"/>
+            </Grid>
+        </DataTemplate>
+
+        <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:ApplicationMobile_WP.ViewModel" />
+    </Application.Resources>
+</Application>

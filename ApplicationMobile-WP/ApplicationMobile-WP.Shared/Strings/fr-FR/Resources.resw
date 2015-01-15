@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApplicationName.Text" xml:space="preserve">
+    <value>LOL APP</value>
+  </data>
+  <data name="AppPoints.Text" xml:space="preserve">
+    <value>App-Points : </value>
+  </data>
+  <data name="Assist.Text" xml:space="preserve">
+    <value>Assistances :</value>
+  </data>
+  <data name="ButtonNextWeek.Content" xml:space="preserve">
+    <value>Prochaine Semaine</value>
+  </data>
+  <data name="ButtonPreviousWeek.Content" xml:space="preserve">
+    <value>Précédente Semaine</value>
+  </data>
+  <data name="ChampionsSlain.Text" xml:space="preserve">
+    <value>Champions Tués :</value>
+  </data>
+  <data name="Creeps.Text" xml:space="preserve">
+    <value>CREEPS :</value>
+  </data>
+  <data name="CrowdControl.Text" xml:space="preserve">
+    <value>Temps de contrôle de foule :</value>
+  </data>
+  <data name="DamageDealt.Text" xml:space="preserve">
+    <value>Dégâts Infligés :</value>
+  </data>
+  <data name="DamagesTitle.Text" xml:space="preserve">
+    <value>Dégâts</value>
+  </data>
+  <data name="DamageTaken.Text" xml:space="preserve">
+    <value>Dégâts Subis :</value>
+  </data>
+  <data name="Deaths.Text" xml:space="preserve">
+    <value>Morts :</value>
+  </data>
+  <data name="Defeats.Text" xml:space="preserve">
+    <value>Défaites :</value>
+  </data>
+  <data name="Double.Text" xml:space="preserve">
+    <value>Doublés :</value>
+  </data>
+  <data name="Farm.Text" xml:space="preserve">
+    <value>FARM :</value>
+  </data>
+  <data name="Favorites.Text" xml:space="preserve">
+    <value>Favoris</value>
+  </data>
+  <data name="GamesPLayed.Text" xml:space="preserve">
+    <value>Parties Jouées :</value>
+  </data>
+  <data name="GamesPlayedTitle.Text" xml:space="preserve">
+    <value>Parties Jouées</value>
+  </data>
+  <data name="GamesWin.Text" xml:space="preserve">
+    <value>Parties Gagnées :</value>
+  </data>
+  <data name="GlobalView.Header" xml:space="preserve">
+    <value>Vue d'ensemble</value>
+  </data>
+  <data name="GoldEarned.Text" xml:space="preserve">
+    <value>Or Gagnés :</value>
+  </data>
+  <data name="Healing.Text" xml:space="preserve">
+    <value>Soins Effectués :</value>
+  </data>
+  <data name="Historic.Header" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="KillingSpree.Text" xml:space="preserve">
+    <value>Séries Meurtrières :</value>
+  </data>
+  <data name="KillsAndDeathsTitle.Text" xml:space="preserve">
+    <value>Tués / Morts</value>
+  </data>
+  <data name="KillSimMax.Text" xml:space="preserve">
+    <value>Tués simultanément Max :</value>
+  </data>
+  <data name="LargestKillingSpree.Text" xml:space="preserve">
+    <value>Plus longue Série Meurtrière :</value>
+  </data>
+  <data name="LongestGame.Text" xml:space="preserve">
+    <value>Plus Longue Partie :</value>
+  </data>
+  <data name="LongestTimeAlive.Text" xml:space="preserve">
+    <value>Temps resté le plus longtemps en vie :</value>
+  </data>
+  <data name="MagicDamageDealt.Text" xml:space="preserve">
+    <value>Dégâts Magiques Infligés :</value>
+  </data>
+  <data name="MagicDamageTaken.Text" xml:space="preserve">
+    <value>Dégâts Magiques Subis :</value>
+  </data>
+  <data name="MinionsSlain.Text" xml:space="preserve">
+    <value>Sbires Tués :</value>
+  </data>
+  <data name="MonstersSlain.Text" xml:space="preserve">
+    <value>Monstres Tués :</value>
+  </data>
+  <data name="MostDeaths.Text" xml:space="preserve">
+    <value>Morts Max :</value>
+  </data>
+  <data name="MostKills.Text" xml:space="preserve">
+    <value>Tués Max :</value>
+  </data>
+  <data name="OthersTitle.Text" xml:space="preserve">
+    <value>Autres</value>
+  </data>
+  <data name="Pentakill.Text" xml:space="preserve">
+    <value>Quintuplés :</value>
+  </data>
+  <data name="PhysicalDamageDealt.Text" xml:space="preserve">
+    <value>Dégâts Phyisques Infligés :</value>
+  </data>
+  <data name="Quadrakill.Text" xml:space="preserve">
+    <value>Quadruplés :</value>
+  </data>
+  <data name="RankingTitle.Text" xml:space="preserve">
+    <value>Classement</value>
+  </data>
+  <data name="RecentResearch.Text" xml:space="preserve">
+    <value>Recherches Récentes</value>
+  </data>
+  <data name="SoloDuo.Text" xml:space="preserve">
+    <value>Solo/Duo</value>
+  </data>
+  <data name="StatisticsHeader.Header" xml:space="preserve">
+    <value>Statistiques de la saison 2014</value>
+  </data>
+  <data name="StatTitle.Text" xml:space="preserve">
+    <value>STATISTIQUES</value>
+  </data>
+  <data name="Team3c3.Text" xml:space="preserve">
+    <value>Equipe 3c3</value>
+  </data>
+  <data name="Team5c5.Text" xml:space="preserve">
+    <value>Equipe 5c5</value>
+  </data>
+  <data name="TeamTitle.Text" xml:space="preserve">
+    <value>EQUIPES</value>
+  </data>
+  <data name="Triple.Text" xml:space="preserve">
+    <value>Triplés :</value>
+  </data>
+  <data name="TurretsDestroyed.Text" xml:space="preserve">
+    <value>Tourelles Détruites :</value>
+  </data>
+  <data name="Victories.Text" xml:space="preserve">
+    <value>Victoires :</value>
+  </data>
+  <data name="EnterSummoner.Text" xml:space="preserve">
+    <value>Introduisez le nom d'un invocateur :</value>
+  </data>
+  <data name="SummonerNotFound" xml:space="preserve">
+    <value>Invocateur introuvable</value>
+  </data>
+  <data name="ARAM_UNRANKED_5x5" xml:space="preserve">
+    <value>ARAM</value>
+  </data>
+  <data name="ASCENSION" xml:space="preserve">
+    <value>Ascension</value>
+  </data>
+  <data name="BOT" xml:space="preserve">
+    <value>Partie contre des bots</value>
+  </data>
+  <data name="BOT_3x3" xml:space="preserve">
+    <value>Partie contre des bots 3c3</value>
+  </data>
+  <data name="CAP_5x5" xml:space="preserve">
+    <value>Créateur d'équipe</value>
+  </data>
+  <data name="DEFEAT" xml:space="preserve">
+    <value>DEFAITE</value>
+  </data>
+  <data name="FIRSTBLOOD_1x1" xml:space="preserve">
+    <value>Premier sang 1c1</value>
+  </data>
+  <data name="FIRSTBLOOD_2x2" xml:space="preserve">
+    <value>Premier sang 2c2</value>
+  </data>
+  <data name="HEXAKILL" xml:space="preserve">
+    <value>Sextuplé</value>
+  </data>
+  <data name="InternalServerError" xml:space="preserve">
+    <value>Une erreur interne du serveur est apparue : Veuillez réessayer dans quelques instants</value>
+  </data>
+  <data name="NIGHTMARE_BOT" xml:space="preserve">
+    <value>Bots du cauchemard</value>
+  </data>
+  <data name="NONE" xml:space="preserve">
+    <value>Partie personnalisée</value>
+  </data>
+  <data name="NORMAL" xml:space="preserve">
+    <value>Normal 5c5</value>
+  </data>
+  <data name="NORMAL_3x3" xml:space="preserve">
+    <value>Normal 3c3</value>
+  </data>
+  <data name="ODIN_UNRANKED" xml:space="preserve">
+    <value>Odin</value>
+  </data>
+  <data name="ONEFORALL_5x5" xml:space="preserve">
+    <value>Un pour tous</value>
+  </data>
+  <data name="RANKED_PREMADE_3x3" xml:space="preserve">
+    <value>Partie classée 3c3</value>
+  </data>
+  <data name="RANKED_PREMADE_5x5" xml:space="preserve">
+    <value>Partie classée duo 5c5</value>
+  </data>
+  <data name="RANKED_SOLO_5x5" xml:space="preserve">
+    <value>Partie classée solo 5c5</value>
+  </data>
+  <data name="RANKED_TEAM_3x3" xml:space="preserve">
+    <value>Partie classée en équipe 3c3</value>
+  </data>
+  <data name="RANKED_TEAM_5x5" xml:space="preserve">
+    <value>Partie classée en équipe 5c5</value>
+  </data>
+  <data name="RateLimiteExceed" xml:space="preserve">
+    <value>Le serveur reçois trop de requête simultanément : Veuillez réessayer dans quelques instants</value>
+  </data>
+  <data name="ServiceUnavailable" xml:space="preserve">
+    <value>Service indisponible : Veuillez réessayer dans quelques instants</value>
+  </data>
+  <data name="SR_6x6" xml:space="preserve">
+    <value>6c6</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Une erreur est apparue : Vous n'êtes pas autorisé à accéder à ces données</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Une erreur inconnue est apparue : Veuillez réessayer</value>
+  </data>
+  <data name="URF" xml:space="preserve">
+    <value>Ultra Rapid Fire</value>
+  </data>
+  <data name="URF_BOT" xml:space="preserve">
+    <value>URF partie contre des bots</value>
+  </data>
+  <data name="VICTORY" xml:space="preserve">
+    <value>VICTOIRE</value>
+  </data>
+  <data name="AddFavorite" xml:space="preserve">
+    <value>Ajouter aux favoris</value>
+  </data>
+  <data name="ErrorMessageAddFavoriteAlreadyExist" xml:space="preserve">
+    <value>Cet invocateur est déjà présent dans votre liste de favoris</value>
+  </data>
+  <data name="ErrorMessageAddFavoriteTooMuch" xml:space="preserve">
+    <value>Le nombre maximum de favoris est déjà atteint</value>
+  </data>
+  <data name="AddFavoriteSuccess" xml:space="preserve">
+    <value>L'invocateur à bien été ajouté aux favoris</value>
+  </data>
+  <data name="Error.Text" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="RemoveFavorite" xml:space="preserve">
+    <value>Retirer des favoris</value>
+  </data>
+  <data name="RemoveFavoriteSuccess" xml:space="preserve">
+    <value>L'invocateur à bien été retiré des favoris</value>
+  </data>
+  <data name="Find.Content" xml:space="preserve">
+    <value>Chercher</value>
+  </data>
+  <data name="ScoreNotUpToDate" xml:space="preserve">
+    <value>Les derniers matchs n'ont pas encore été calculés\nEssayez de mettre le score à jour dans quelques secondes</value>
+  </data>
+  <data name="ScoreUpToDate" xml:space="preserve">
+    <value>Le score est à jour !</value>
+  </data>
+  <data name="MatchAdded" xml:space="preserve">
+    <value>Match(s) ont été ajouté</value>
+  </data>
+  <data name="MatchNotUpToDate" xml:space="preserve">
+    <value>Les derniers matchs sont toujours en cours de calcul
+Essayez de mettre à jour le score dans quelques secondes</value>
+  </data>
+  <data name="MatchUpToDate" xml:space="preserve">
+    <value>Le score est à jour !</value>
+  </data>
+  <data name="See10MoreMatchs.Content" xml:space="preserve">
+    <value>Voir 10 matchs supplémentaires</value>
+  </data>
+  <data name="UpdateScore.Content" xml:space="preserve">
+    <value>Mettre à jour le score</value>
+  </data>
+  <data name="GlobalViewHeaderTabler" xml:space="preserve">
+    <value>Vue d'emsemble</value>
+  </data>
+  <data name="MatchHistoryHeaderTabler" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="StatisticsHeaderTabler" xml:space="preserve">
+    <value>Statistiques</value>
+  </data>
+</root>
