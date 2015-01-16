@@ -98,16 +98,10 @@ namespace ApplicationMobile_WP
         {
             base.OnNavigatedTo(e);
 
-            if(LoadingViewModel.ComeFromBackButton)
-            {
-                this.navigationHelper.GoBack();
-            }
-            else
-            {
+            
                 var navigableViewModel = this.DataContext as INavigable;
                 if (navigableViewModel != null)
                     navigableViewModel.Activate(e.Parameter);
-            }
             
         }
 

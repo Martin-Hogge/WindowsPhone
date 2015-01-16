@@ -154,11 +154,21 @@ namespace ApplicationMobile_WP.ViewModel
                 RaisePropertyChanged();
             }
         }
+        private bool _progressActive;
+        public bool ProgressActive
+        {
+            get { return _progressActive; }
+            set
+            {
+                _progressActive = value;
+                RaisePropertyChanged();
+            }
+
+        }
 
         public HubViewModel()
         {
             Services = new RiotAPIServices();
-
             GoHomeCommand = new RelayCommand(() =>
             {
                 SingletonViewLocator.getInstance().NavigationService.NavigateTo("Home");
@@ -181,7 +191,9 @@ namespace ApplicationMobile_WP.ViewModel
 
             GetMoreMatchCommand = new RelayCommand(async() =>
             {
+                ProgressActive = true;
                 await UpdateMatchHistory();
+                ProgressActive = false;
             });
 
             FavoriteCommand = new RelayCommand(async () =>

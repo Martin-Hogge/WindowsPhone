@@ -1,5 +1,6 @@
 ﻿using ApplicationMobile_WP.Common;
 using ApplicationMobile_WP.ViewModel;
+using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -97,6 +98,7 @@ namespace ApplicationMobile_WP
         {
             base.OnNavigatedTo(e);
 
+            Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
             var navigableViewModel = this.DataContext as INavigable;
             if (navigableViewModel != null)
                 navigableViewModel.Activate(e.Parameter);

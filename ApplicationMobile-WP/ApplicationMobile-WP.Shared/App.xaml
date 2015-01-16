@@ -93,7 +93,6 @@
         </DataTemplate>
 
         <!-- TABLET : -->
-
         <DataTemplate x:Key="ListUserTemplateTablet">
             <Grid Margin="10">
                 <!-- Grid parameters-->

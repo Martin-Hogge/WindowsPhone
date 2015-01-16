@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:ApplicationMobile_WP.ViewModel"
+    xmlns:mo="using:ApplicationMobile_WP.Model"
     d:DataContext="{d:DesignInstance Type=vm:ErrorViewModel, IsDesignTimeCreatable=True}"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
