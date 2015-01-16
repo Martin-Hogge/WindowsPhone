@@ -45,7 +45,8 @@ namespace ApplicationMobile_WP.Model
             var objectMatchHistory = await ExecuteMatchHistoryRequest(summoner, region);
             summoner = SetMatchHistoryInformation(objectMatchHistory, summoner, region);
 
-            RemoteDataAccessManager.MatchUpdated.Add(new KeyValuePair<int, string>(summoner.ID, region), false);
+            if(!RemoteDataAccessManager.AlreadyExistsInMatchUpdated(summoner.ID, region))
+                RemoteDataAccessManager.MatchUpdated.Add(new KeyValuePair<int, string>(summoner.ID, region), false);
             UpdateMatchToInsert(summoner.MatchHistory,region,summoner.ID);
 
             summoner.Score = await RemoteDataAccessManager.GetScoreForSummoner(summoner.ID, region);

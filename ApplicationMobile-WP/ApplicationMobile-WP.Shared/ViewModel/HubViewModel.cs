@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -195,7 +196,7 @@ namespace ApplicationMobile_WP.ViewModel
             });
         }
 
-        private async System.Threading.Tasks.Task AddToFavorites(Windows.ApplicationModel.Resources.ResourceLoader loader)
+        private async Task AddToFavorites(Windows.ApplicationModel.Resources.ResourceLoader loader)
         {
             try
             {
@@ -211,7 +212,7 @@ namespace ApplicationMobile_WP.ViewModel
             }
         }
 
-        private async System.Threading.Tasks.Task RemoveFromFavorites(Windows.ApplicationModel.Resources.ResourceLoader loader)
+        private async Task RemoveFromFavorites(Windows.ApplicationModel.Resources.ResourceLoader loader)
         {
             await LocalDataAccessManager.RemoveFromFavorites(new Summoner(User.ID, User.IdIcon, User.Name, User.Region));
             ColorAlertMessage = "Green";
@@ -219,7 +220,7 @@ namespace ApplicationMobile_WP.ViewModel
             User.IsFavorite = false;
         }
 
-        private async System.Threading.Tasks.Task UpdateMatchHistory()
+        private async Task UpdateMatchHistory()
         {
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             if (remoteMatchs == null)
@@ -240,9 +241,10 @@ namespace ApplicationMobile_WP.ViewModel
             SetMatchUpdateText(loader);
         }
 
-        private async System.Threading.Tasks.Task<Match> GoToDetailMatch(Match match)
+        private async Task<Match> GoToDetailMatch(Match match)
         {
             bool requestOk = false;
+            int i409Error = 0;
             while (!requestOk)
             {
                 try
@@ -252,14 +254,28 @@ namespace ApplicationMobile_WP.ViewModel
                 }
                 catch (RequestRiotAPIException e)
                 {
-                    Debug.WriteLine(e.Message);
+                    if (!(e.Code == (System.Net.HttpStatusCode)409) || i409Error >= int.MaxValue)
+                    {
+                        GoToErrorPage(match);
+                        break;
+                    }
+                    else
+                        i409Error++;
                 }
             }
-            SingletonViewLocator.getInstance().NavigationService.NavigateTo("DetailMatch", match);
+            if(requestOk)
+                SingletonViewLocator.getInstance().NavigationService.NavigateTo("DetailMatch", match);
             return match;
         }
 
-        private async System.Threading.Tasks.Task InitializeRemoteMatchs()
+        private void GoToErrorPage(Match match)
+        {
+            ErrorViewModel.TypeOfError = ErrorViewModel.ErrorType.GO_TO_MATCH;
+            SingletonViewLocator.getInstance().NavigationService.NavigateTo("Error",
+                new Object[] { match, User.Region, new RequestRiotAPIException(System.Net.HttpStatusCode.Ambiguous) });
+        }
+
+        private async Task InitializeRemoteMatchs()
         {
             remoteMatchs = new List<DataAccess.RemoteModel.Match>();
             List<DataAccess.RemoteModel.SummonerTeam> summoners = await (App.lolServiceMobileClient.GetTable<DataAccess.RemoteModel.SummonerTeam>().Where(x => x.summonerid == User.ID)).ToListAsync();
@@ -274,7 +290,7 @@ namespace ApplicationMobile_WP.ViewModel
             }
         }
 
-        private static async System.Threading.Tasks.Task GetTeams(List<DataAccess.RemoteModel.SummonerTeam> summoners, List<DataAccess.RemoteModel.Team> teams)
+        private static async Task GetTeams(List<DataAccess.RemoteModel.SummonerTeam> summoners, List<DataAccess.RemoteModel.Team> teams)
         {
             foreach (DataAccess.RemoteModel.SummonerTeam st in summoners)
             {

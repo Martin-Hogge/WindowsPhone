@@ -37,7 +37,15 @@
 
         <!--TODO: Content should be placed within the following grid-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-            <TextBlock Text="{Binding Exception.Message}"/>
+            <StackPanel>
+                <TextBlock Text="{Binding Content, Mode=TwoWay}" Foreground="Red"/>
+                <Button x:Uid="TryAgain"
+                        Command="{Binding ErrorCommand}"></Button>
+                <ProgressRing Name="splashProgressRing" Width="20" HorizontalAlignment="Center"
+                      Height="20"
+                      Margin="50"
+                      IsActive="{Binding ProgressActive, Mode=TwoWay}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

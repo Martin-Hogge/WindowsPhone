@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
@@ -46,9 +47,10 @@ namespace ApplicationMobile_WP.ViewModel
             });
         }
 
-        private async System.Threading.Tasks.Task<Summoner> PerformRequests(Summoner summoner)
+        private async Task<Summoner> PerformRequests(Summoner summoner)
         {
             bool requestOk = false;
+            int i409Error = 0;
             while (!requestOk)
             {
                 try
@@ -61,10 +63,23 @@ namespace ApplicationMobile_WP.ViewModel
                 }
                 catch (RequestRiotAPIException e)
                 {
-                    Debug.WriteLine(e.Message);
+                    if (!(e.Code == (System.Net.HttpStatusCode)409) || i409Error >= int.MaxValue)
+                    {
+                        GoToErrorPage(summoner);
+                        break;
+                    }
+                    else
+                        i409Error++;
                 }
             }
             return summoner;
+        }
+
+        private static void GoToErrorPage(Summoner summoner)
+        {
+            ErrorViewModel.TypeOfError = ErrorViewModel.ErrorType.GO_TO_SUMMONER;
+            SingletonViewLocator.getInstance().NavigationService.NavigateTo("Error",
+                new Object[] { summoner, new RequestRiotAPIException(System.Net.HttpStatusCode.Ambiguous) });
         }
 
         public void Activate(object parameter)

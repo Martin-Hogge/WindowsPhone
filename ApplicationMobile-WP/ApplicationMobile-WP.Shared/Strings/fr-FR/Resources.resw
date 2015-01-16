@@ -415,4 +415,7 @@ Essayez de mettre à jour le score dans quelques secondes</value>
   <data name="StatisticsHeaderTabler" xml:space="preserve">
     <value>Statistiques</value>
   </data>
+  <data name="TryAgain.Content" xml:space="preserve">
+    <value>Réessayer</value>
+  </data>
 </root>

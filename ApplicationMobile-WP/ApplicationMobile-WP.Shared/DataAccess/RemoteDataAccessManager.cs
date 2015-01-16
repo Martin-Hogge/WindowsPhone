@@ -306,5 +306,15 @@ namespace ApplicationMobile_WP.DataAccess
 
             return modelMatch;
         }
+
+        public static bool AlreadyExistsInMatchUpdated(int id, string region)
+        {
+            foreach(KeyValuePair<KeyValuePair<int,string>,bool> entry in MatchUpdated)
+            {
+                if (entry.Key.Key == id && entry.Key.Value == region)
+                    return true;
+            }
+            return false;
+        }
     }
 }
