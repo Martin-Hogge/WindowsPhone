@@ -178,8 +178,10 @@ namespace ApplicationMobile_WP.DataAccess
             {
                 score = await CalculScore(tableTeam, score, summonerTeam);
             }
-
-            return score / listSummonerTeam.Count;
+            if (listSummonerTeam.Count > 0)
+                return score / listSummonerTeam.Count;
+            else
+                return 0;
         }
 
         private static async Task<int> CalculScore(Microsoft.WindowsAzure.MobileServices.IMobileServiceTable<RemoteModel.Team> tableTeam, int score, DataAccess.RemoteModel.SummonerTeam summonerTeam)

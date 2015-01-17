@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ApplicationMobile_WP.ViewModel
 {
@@ -40,6 +41,17 @@ namespace ApplicationMobile_WP.ViewModel
         private string errorMessage;
         private string chosenRegion;
         public RelayCommand GoHomeCommand { get; set; }
+        private bool _progressActive;
+        public bool ProgressActive
+        {
+            get { return _progressActive; }
+            set
+            {
+                _progressActive = value;
+                RaisePropertyChanged();
+            }
+
+        }
 
         public SearchViewModel()
         {
@@ -62,27 +74,33 @@ namespace ApplicationMobile_WP.ViewModel
 
             SearchCommand = new RelayCommand(async() =>
             {
-                SingletonViewLocator.getInstance().NavigationService.NavigateTo("Loading");
-                await PerformRequests();
-                HubCommand.Execute(null);
+                try
+                {
+                    ProgressActive = true;
+                    await PerformRequests();
+                    HubViewModel.ComeFromSearchPage = true;
+                    HubCommand.Execute(null);
+                }
+                catch(RequestRiotAPIException e)
+                {
+                    ErrorMessage = e.Message +
+                                   (e.Code == System.Net.HttpStatusCode.NotFound ? String.Format(" ({0})", SummonerName) : "");
+                }
+                finally
+                {
+                    ProgressActive = false;
+                }
             });
         }
 
-        private async System.Threading.Tasks.Task PerformRequests()
+        private async Task PerformRequests()
         {
-            try
-            {
-                ChosenSummoner = await Services.GetSummoner(SummonerName, ChosenRegion.ToLower());
-                ChosenSummoner.IsFavorite = LocalDataAccessManager.AlreadyExistsInList(
+
+            ChosenSummoner = await Services.GetSummoner(SummonerName, ChosenRegion.ToLower());
+            ChosenSummoner.IsFavorite = LocalDataAccessManager.AlreadyExistsInList(
                     await LocalDataAccessManager.GetListSummonersFromLocal(LocalDataAccessManager.favoriteFileName), ChosenSummoner);
-                await LocalDataAccessManager.AddRecentResearch(new Summoner(
+            await LocalDataAccessManager.AddRecentResearch(new Summoner(
                     ChosenSummoner.ID, ChosenSummoner.IdIcon, ChosenSummoner.Name, ChosenSummoner.Region));
-            }
-            catch (RequestRiotAPIException summonEx)
-            {
-                ErrorMessage = summonEx.Message +
-                               (summonEx.Code == System.Net.HttpStatusCode.NotFound ? String.Format(" ({0})", SummonerName) : "");
-            }
         }
 
         private void InitializeRegions()

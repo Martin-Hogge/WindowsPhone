@@ -163,8 +163,8 @@ namespace ApplicationMobile_WP.ViewModel
                 _progressActive = value;
                 RaisePropertyChanged();
             }
-
         }
+        public static bool ComeFromSearchPage { get; set; }
 
         public HubViewModel()
         {

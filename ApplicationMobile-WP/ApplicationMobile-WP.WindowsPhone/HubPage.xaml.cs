@@ -98,7 +98,8 @@ namespace ApplicationMobile_WP
         {
             base.OnNavigatedTo(e);
 
-            Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
+            if(!HubViewModel.ComeFromSearchPage)
+                Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
             var navigableViewModel = this.DataContext as INavigable;
             if (navigableViewModel != null)
                 navigableViewModel.Activate(e.Parameter);

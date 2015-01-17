@@ -48,6 +48,10 @@
                 </StackPanel>
                 <TextBlock Foreground="Red" Text="{Binding ErrorMessage, Mode=TwoWay}" VerticalAlignment="Center"
 					FontSize="12"/>
+                <ProgressRing Name="splashProgressRing" Width="20" HorizontalAlignment="Center"
+                      Height="20"
+                      Margin="50"
+                      IsActive="{Binding ProgressActive, Mode=TwoWay}"/>
             </StackPanel>
         </Grid>
 

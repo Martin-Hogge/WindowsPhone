@@ -37,6 +37,7 @@ namespace ApplicationMobile_WP.ViewModel
                 LoadingViewModel.ComeFromBackButton = false;
                 SingletonViewLocator.getInstance().NavigationService.NavigateTo("Loading");
                 summoner = await PerformRequests(summoner);
+                HubViewModel.ComeFromSearchPage = false;
                 SingletonViewLocator.getInstance().NavigationService.NavigateTo("Hub", summoner);
             });
 

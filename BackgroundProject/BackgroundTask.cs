@@ -15,7 +15,7 @@ namespace BackgroundProject
     public sealed class BackgroundTask : IBackgroundTask
     {
         //Nous avons bien compris le fonctionnement des Background Agents mais nous n'avons pas trouvé d'utilité à en avoir un.
-        //Donc nous en avons fait pour montrer que nous savions le faire malgré que celui-ci ne fait que faire un Debug.WriteLine()
+        //Donc nous en avons fait un pour montrer que nous savions le faire malgré que celui-ci ne fait que faire un Debug.WriteLine()
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
