@@ -4,6 +4,7 @@ using ApplicationMobile_WP.Model;
 using ApplicationMobile_WP.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -138,9 +139,9 @@ public static Microsoft.WindowsAzure.MobileServices.MobileServiceClient lolServi
                     Window.Current.Content = new ErrorPage();
                 }
                 
-                MainViewModel.RecentSearches = new System.Collections.ObjectModel.ObservableCollection<Summoner>(await
+                MainViewModel.RecentSearches = new ObservableCollection<Summoner>(await
                     LocalDataAccessManager.GetListSummonersFromLocal(LocalDataAccessManager.recentSearchesFileName));
-                MainViewModel.Favoris = new System.Collections.ObjectModel.ObservableCollection<Summoner>(await
+                MainViewModel.Favoris = new ObservableCollection<Summoner>(await
                     LocalDataAccessManager.GetListSummonersFromLocal(LocalDataAccessManager.favoriteFileName));
                 Window.Current.Content = rootFrame;
             }

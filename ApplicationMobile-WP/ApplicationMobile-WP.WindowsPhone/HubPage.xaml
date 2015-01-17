@@ -488,7 +488,6 @@
                             <ProgressRing Name="splashProgressRing" Width="20" HorizontalAlignment="Center"
                                           Height="20"
                                           Margin="10"
-                      
                                           IsActive="{Binding ProgressActive, Mode=TwoWay}"/>
                         </StackPanel>
                     </DataTemplate>

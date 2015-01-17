@@ -1,5 +1,6 @@
 ﻿using ApplicationMobile_WP.Exceptions;
 using ApplicationMobile_WP.Model;
+using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -50,8 +51,7 @@ namespace ApplicationMobile_WP.DataAccess
             MatchUpdated[SummonerInfo] = true;
         }
 
-        private static async Task SetListTokenMatch(List<KeyValuePair<int, string>> listToAdd,
-            Microsoft.WindowsAzure.MobileServices.IMobileServiceTable<RemoteModel.Match> tableMatch,
+        private static async Task SetListTokenMatch(List<KeyValuePair<int, string>> listToAdd, IMobileServiceTable<RemoteModel.Match> tableMatch,
             List<JToken> listTokenMatch, RiotAPIServices services)
         {
             int i = 0;
@@ -63,7 +63,6 @@ namespace ApplicationMobile_WP.DataAccess
                     try
                     {
                         listTokenMatch.Add(await services.GetOneMatch(listToAdd[i].Key, listToAdd[i].Value, false));
-                        i++;
                     }
                     catch (RequestRiotAPIException)
                     {
@@ -76,7 +75,8 @@ namespace ApplicationMobile_WP.DataAccess
         }
 
         //com
-        private static async System.Threading.Tasks.Task InsertAllSummonerTeam(List<KeyValuePair<int, KeyValuePair<int, int>>> MatchingSummonerChampion, Microsoft.WindowsAzure.MobileServices.IMobileServiceTable<RemoteModel.SummonerTeam> tableSummonerTeam, JToken tokenMatch, DataAccess.RemoteModel.Match match)
+        private static async System.Threading.Tasks.Task InsertAllSummonerTeam(List<KeyValuePair<int, KeyValuePair<int, int>>> MatchingSummonerChampion,
+            IMobileServiceTable<RemoteModel.SummonerTeam> tableSummonerTeam, JToken tokenMatch, DataAccess.RemoteModel.Match match)
         {
             var players = tokenMatch["participants"];
             var currentPlayer = players.First;
@@ -90,7 +90,8 @@ namespace ApplicationMobile_WP.DataAccess
             }
         }
 
-        private static void SetSummonerTeamInformation(List<KeyValuePair<int, KeyValuePair<int, int>>> MatchingSummonerChampion, JToken tokenMatch, DataAccess.RemoteModel.Match match, JToken currentPlayer, DataAccess.RemoteModel.SummonerTeam summonerTeam)
+        private static void SetSummonerTeamInformation(List<KeyValuePair<int, KeyValuePair<int, int>>> MatchingSummonerChampion,
+            JToken tokenMatch, DataAccess.RemoteModel.Match match, JToken currentPlayer, DataAccess.RemoteModel.SummonerTeam summonerTeam)
         {
             summonerTeam.assists = currentPlayer["stats"].Value<int?>("assists") ?? 0;
             summonerTeam.championid = (int)currentPlayer["championId"];
@@ -126,7 +127,7 @@ namespace ApplicationMobile_WP.DataAccess
             summonerTeam.timecrowdcontrol = currentPlayer["stats"].Value<int?>("totalTimeCrowdControlDealt") ?? 0;
         }
 
-        private static async System.Threading.Tasks.Task InsertMatchAndTeams(Microsoft.WindowsAzure.MobileServices.IMobileServiceTable<RemoteModel.Match> tableMatch, Microsoft.WindowsAzure.MobileServices.IMobileServiceTable<RemoteModel.Team> tableTeam, DataAccess.RemoteModel.Match match, DataAccess.RemoteModel.Team blueTeam, DataAccess.RemoteModel.Team redTeam)
+        private static async System.Threading.Tasks.Task InsertMatchAndTeams(IMobileServiceTable<RemoteModel.Match> tableMatch, Microsoft.WindowsAzure.MobileServices.IMobileServiceTable<RemoteModel.Team> tableTeam, DataAccess.RemoteModel.Match match, DataAccess.RemoteModel.Team blueTeam, DataAccess.RemoteModel.Team redTeam)
         {
             try
             {

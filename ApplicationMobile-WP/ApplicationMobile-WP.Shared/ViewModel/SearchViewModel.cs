@@ -76,10 +76,7 @@ namespace ApplicationMobile_WP.ViewModel
             {
                 try
                 {
-                    ProgressActive = true;
-                    await PerformRequests();
-                    HubViewModel.ComeFromSearchPage = true;
-                    HubCommand.Execute(null);
+                    await GoToHub();
                 }
                 catch(RequestRiotAPIException e)
                 {
@@ -91,6 +88,14 @@ namespace ApplicationMobile_WP.ViewModel
                     ProgressActive = false;
                 }
             });
+        }
+
+        private async Task GoToHub()
+        {
+            ProgressActive = true;
+            await PerformRequests();
+            HubViewModel.ComeFromSearchPage = true;
+            HubCommand.Execute(null);
         }
 
         private async Task PerformRequests()

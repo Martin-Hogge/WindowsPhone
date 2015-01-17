@@ -24,17 +24,14 @@ namespace ApplicationMobile_WP.ViewModel
         public RiotAPIServices Services { get; set; }
         public RelayCommand GoHomeCommand { get; set; }
         public RelayCommand SearchCommand { get; set; }
+        private bool RequestOk { get; set; }
 
         public DetailMatchViewModel ()
         {
             Services = new RiotAPIServices();
             HubCommand = new RelayCommand<Summoner>(async summoner =>
             {
-                SingletonViewLocator.getInstance().NavigationService.NavigateTo("Loading");
-                summoner = await PerformRequests(summoner);
-
-                HubViewModel.ComeFromSearchPage = false;
-                SingletonViewLocator.getInstance().NavigationService.NavigateTo("Hub", summoner);
+                summoner = await GoToHub(summoner);
             });
 
             GoHomeCommand = new RelayCommand(() =>
@@ -48,19 +45,27 @@ namespace ApplicationMobile_WP.ViewModel
             });
         }
 
+        private async Task<Summoner> GoToHub(Summoner summoner)
+        {
+            SingletonViewLocator.getInstance().NavigationService.NavigateTo("Loading");
+            summoner = await PerformRequests(summoner);
+            if (RequestOk)
+            {
+                HubViewModel.ComeFromSearchPage = false;
+                SingletonViewLocator.getInstance().NavigationService.NavigateTo("Hub", summoner);
+            }
+            return summoner;
+        }
+
         private async Task<Summoner> PerformRequests(Summoner summoner)
         {
-            bool requestOk = false;
+            RequestOk = false;
             int i409Error = 0;
-            while (!requestOk)
+            while (!RequestOk)
             {
                 try
                 {
-                    summoner = await Services.GetSummoner(summoner.Name, summoner.Region);
-                    summoner.IsFavorite = LocalDataAccessManager.AlreadyExistsInList(
-                        await LocalDataAccessManager.GetListSummonersFromLocal(LocalDataAccessManager.favoriteFileName), summoner);
-                    await LocalDataAccessManager.AddRecentResearch(new Summoner(summoner.ID, summoner.IdIcon, summoner.Name, summoner.Region));
-                    requestOk = true;
+                    summoner = await GetSummoner(summoner);
                 }
                 catch (RequestRiotAPIException e)
                 {
@@ -73,6 +78,16 @@ namespace ApplicationMobile_WP.ViewModel
                         i409Error++;
                 }
             }
+            return summoner;
+        }
+
+        private async Task<Summoner> GetSummoner(Summoner summoner)
+        {
+            summoner = await Services.GetSummoner(summoner.Name, summoner.Region);
+            summoner.IsFavorite = LocalDataAccessManager.AlreadyExistsInList(
+                await LocalDataAccessManager.GetListSummonersFromLocal(LocalDataAccessManager.favoriteFileName), summoner);
+            await LocalDataAccessManager.AddRecentResearch(new Summoner(summoner.ID, summoner.IdIcon, summoner.Name, summoner.Region));
+            RequestOk = true;
             return summoner;
         }
 

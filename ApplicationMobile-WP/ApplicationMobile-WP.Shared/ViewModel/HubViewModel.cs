@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -21,133 +22,99 @@ namespace ApplicationMobile_WP.ViewModel
     public class HubViewModel : ViewModelBase, INavigable
     {
         public Summoner User { get; set; }
+        public RelayCommand<Match> DetailMatchCommand { get; set; }
+        public RelayCommand UpdateScoreCommand { get; set; }
+        public RelayCommand GetMoreMatchCommand { get; set; }
+        public RelayCommand FavoriteCommand { get; set; }
+        public RiotAPIServices Services { get; set; }
+        public RelayCommand GoHomeCommand { get; set; }
+        public RelayCommand SearchCommand { get; set; }
         private ObservableCollection<Match> matchHistory;
+        private string nbMatchesAdded;
+        private List<DataAccess.RemoteModel.Match> remoteMatchs { get; set; }
+        private string matchUpdateText;
+        private Match selectedMatch;
+        private string alertMessageFavorite;
+        private string colorAlertMessage;
+        private string textButtonFavorite;
+        private int score;
         public ObservableCollection<Match> MatchHistory
         {
-            get
-            {
-                return matchHistory;
-            }
+            get { return matchHistory; }
             set
             {
                 matchHistory = value;
                 RaisePropertyChanged();
             }
         }
-        private string nbMatchesAdded;
         public String NbMatchesAdded
         {
-            get
-            {
-                return nbMatchesAdded;
-            }
+            get { return nbMatchesAdded; }
             set
             {
                 nbMatchesAdded = value;
                 RaisePropertyChanged();
             }
         }
-        public RelayCommand<Match> DetailMatchCommand { get; set; }
-        public RelayCommand UpdateScoreCommand { get; set; }
-        public RelayCommand GetMoreMatchCommand { get; set; }
-        public RelayCommand FavoriteCommand { get; set; }
-        private List<DataAccess.RemoteModel.Match> remoteMatchs { get; set; }
-        private string matchUpdateText;
         public String MatchUpdateText
         {
-            get
-            {
-                return matchUpdateText;
-            }
+            get { return matchUpdateText; }
             set
             {
                 matchUpdateText = value;
-                try
-                {
-                    RaisePropertyChanged();
-                }
-                catch(Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-                
+                RaisePropertyChanged();
             }
         }
         public Match SelectedMatch
         {
-            get
-            {
-                return selectedMatch;
-            }
+            get { return selectedMatch; }
             set
             {
                 selectedMatch = value;
                 RaisePropertyChanged();
             }
         }
-        private Match selectedMatch;
-        public RiotAPIServices Services { get; set; }
-        private string alertMessageFavorite;
         public String AlertMessageFavorite
         {
-            get
-            {
-                return alertMessageFavorite;
-            }
+            get { return alertMessageFavorite; }
             set
             {
                 alertMessageFavorite = value;
                 RaisePropertyChanged();
             }
         }
-        private string colorAlertMessage;
         public String ColorAlertMessage
         {
-            get
-            {
-                return colorAlertMessage;
-            }
+            get { return colorAlertMessage; }
             set
             {
                 colorAlertMessage = value;
                 RaisePropertyChanged();
             }
         }
-        private string textButtonFavorite;
         public String TextButtonFavorite
         {
-            get
-            {
-                return textButtonFavorite;
-            }
+            get { return textButtonFavorite; }
             set
             {
                 textButtonFavorite = value;
                 RaisePropertyChanged();
             }
         }
-        private int score;
         public int Score
         {
-            get
-            {
-                return score;
-            }
+            get { return score; }
             set
             {
                 score = value;
                 RaisePropertyChanged();
             }
         }
-        public RelayCommand GoHomeCommand { get; set; }
-        public RelayCommand SearchCommand { get; set; }
+       
         private string updateScoreColor;
         public String UpdateScoreColor
         {
-            get
-            {
-                return updateScoreColor;
-            }
+            get { return updateScoreColor; }
             set
             {
                 updateScoreColor = value;
@@ -165,7 +132,6 @@ namespace ApplicationMobile_WP.ViewModel
             }
         }
         public static bool ComeFromSearchPage { get; set; }
-
         public HubViewModel()
         {
             Services = new RiotAPIServices();
@@ -208,7 +174,7 @@ namespace ApplicationMobile_WP.ViewModel
             });
         }
 
-        private async Task AddToFavorites(Windows.ApplicationModel.Resources.ResourceLoader loader)
+        private async Task AddToFavorites(ResourceLoader loader)
         {
             try
             {
@@ -224,7 +190,7 @@ namespace ApplicationMobile_WP.ViewModel
             }
         }
 
-        private async Task RemoveFromFavorites(Windows.ApplicationModel.Resources.ResourceLoader loader)
+        private async Task RemoveFromFavorites(ResourceLoader loader)
         {
             await LocalDataAccessManager.RemoveFromFavorites(new Summoner(User.ID, User.IdIcon, User.Name, User.Region));
             ColorAlertMessage = "Green";
@@ -234,7 +200,7 @@ namespace ApplicationMobile_WP.ViewModel
 
         private async Task UpdateMatchHistory()
         {
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var loader = new ResourceLoader();
             if (remoteMatchs == null)
             {
                 await InitializeRemoteMatchs();
@@ -248,7 +214,7 @@ namespace ApplicationMobile_WP.ViewModel
 
         private async void UpdateScore()
         {
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var loader = new ResourceLoader();
             Score = await RemoteDataAccessManager.GetScoreForSummoner(User.ID, User.Region);
             SetMatchUpdateText(loader);
         }
@@ -340,7 +306,7 @@ namespace ApplicationMobile_WP.ViewModel
             }
         }
 
-        private void SetTextButtonFavorite(Windows.ApplicationModel.Resources.ResourceLoader loader)
+        private void SetTextButtonFavorite(ResourceLoader loader)
         {
             if (User.IsFavorite)
                 TextButtonFavorite = loader.GetString("RemoveFavorite");
