@@ -186,11 +186,11 @@ namespace ApplicationMobile_WP.DataAccess
 
         private static async Task<int> CalculScore(Microsoft.WindowsAzure.MobileServices.IMobileServiceTable<RemoteModel.Team> tableTeam, int score, DataAccess.RemoteModel.SummonerTeam summonerTeam)
         {
-            List<DataAccess.RemoteModel.Team> teams = await tableTeam.Where(x => x.id == summonerTeam.teamid).ToListAsync();
+            /*List<DataAccess.RemoteModel.Team> teams = await tableTeam.Where(x => x.id == summonerTeam.teamid).ToListAsync();
             if (teams[0].win)
                 score += 1000;
             else
-                score += 500;
+                score += 500;*/
             score += summonerTeam.kills * 100;
             score -= summonerTeam.deaths * 100;
             score += summonerTeam.assists * 50;
